@@ -315,6 +315,15 @@
             90% { opacity: 1; }
             100% { transform: translateY(100vh); opacity: 0; }
         }
+
+        /* Social Links */
+        .social-link {
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            transform: translateY(-3px);
+            filter: drop-shadow(0 0 8px rgba(255, 59, 59, 0.5));
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -333,14 +342,14 @@
                 </div>
                 <div>
                     <span class="font-tactical font-bold text-xl tracking-widest block">PREDATOR TASK FORCE</span>
-                    <span class="text-xs text-red-400 tracking-[0.3em] uppercase">Jake Hockey // Command</span>
+                    <span class="text-xs text-red-400 tracking-[0.3em] uppercase">Jake Hockey // Command // Texas</span>
                 </div>
             </div>
             
             <div class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wider">
-                <a href="#" class="hover:text-red-400 transition-colors uppercase">Intel</a>
-                <a href="#" class="hover:text-red-400 transition-colors uppercase">Operations</a>
-                <a href="#" class="hover:text-red-400 transition-colors uppercase">Evidence</a>
+                <a href="#intel" class="hover:text-red-400 transition-colors uppercase">Intel</a>
+                <a href="#operations" class="hover:text-red-400 transition-colors uppercase">Operations</a>
+                <a href="#evidence" class="hover:text-red-400 transition-colors uppercase">Evidence</a>
                 <button class="px-6 py-2 tactical-glass border border-red-500/30 hover:border-red-500/60 text-red-400 transition-all uppercase tracking-widest text-xs">
                     Secure Login
                 </button>
@@ -363,7 +372,7 @@
                 <div class="h-4 w-px bg-white/20"></div>
                 <span class="text-gray-500">OP-CODE: SHIELD-WALL</span>
                 <div class="h-4 w-px bg-white/20"></div>
-                <span class="text-gray-500">LOC: CLASSIFIED</span>
+                <span class="text-gray-500">LOC: TEXAS // SAN ANTONIO/AUSTIN</span>
                 <div class="h-4 w-px bg-white/20"></div>
                 <span class="blink text-amber-400">REC</span>
             </div>
@@ -376,17 +385,43 @@
                     </h1>
                     
                     <p class="text-lg text-gray-400 mb-8 leading-relaxed border-l-2 border-red-500/50 pl-6">
-                        Join the Predator Task Force. Your support funds operations, equipment, and the relentless pursuit of justice. 
-                        Every contribution keeps the streets safer.
+                        Join the Predator Task Force. Professional, cinematic predator catching operations based in Texas. 
+                        Working with law enforcement to keep communities safe. Every contribution powers the mission.
                     </p>
+
+                    <!-- Social Stats -->
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <a href="https://www.youtube.com/@PredTaskForce" target="_blank" class="social-link tactical-glass px-4 py-3 rounded-sm flex items-center gap-3 border-red-500/20">
+                            <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            <div>
+                                <div class="font-tactical font-bold text-sm">360K</div>
+                                <div class="text-[10px] text-gray-500 uppercase tracking-wider">Subscribers</div>
+                            </div>
+                        </a>
+                        <a href="https://www.instagram.com/predtaskforce" target="_blank" class="social-link tactical-glass px-4 py-3 rounded-sm flex items-center gap-3 border-amber-500/20">
+                            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                            <div>
+                                <div class="font-tactical font-bold text-sm">@predtaskforce</div>
+                                <div class="text-[10px] text-gray-500 uppercase tracking-wider">Instagram</div>
+                            </div>
+                        </a>
+                        <a href="https://x.com/predtaskforce" target="_blank" class="social-link tactical-glass px-4 py-3 rounded-sm flex items-center gap-3 border-white/20">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            <div>
+                                <div class="font-tactical font-bold text-sm">@predtaskforce</div>
+                                <div class="text-[10px] text-gray-500 uppercase tracking-wider">X (Twitter)</div>
+                            </div>
+                        </a>
+                    </div>
 
                     <div class="flex flex-wrap gap-4">
                         <button class="btn-tactical px-8 py-4 rounded-sm font-tactical">
                             Join Task Force
                         </button>
-                        <button class="tactical-glass px-8 py-4 rounded-sm font-tactical border border-white/10 hover:border-white/30 transition-all">
-                            View Intel
-                        </button>
+                        <a href="https://linktr.ee/predtaskforce" target="_blank" class="tactical-glass px-8 py-4 rounded-sm font-tactical border border-white/10 hover:border-white/30 transition-all inline-flex items-center gap-2">
+                            View Case Files
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
                     </div>
                 </div>
 
@@ -407,27 +442,27 @@
 
                             <div class="space-y-4">
                                 <div class="flex justify-between items-center py-2 border-b border-white/10">
-                                    <span class="text-gray-400 text-sm">OPERATIONS CONDUCTED</span>
-                                    <span class="font-tactical text-2xl text-white">147</span>
+                                    <span class="text-gray-400 text-sm">YOUTUBE SUBSCRIBERS</span>
+                                    <span class="font-tactical text-2xl text-red-400">360K</span>
                                 </div>
                                 <div class="flex justify-between items-center py-2 border-b border-white/10">
-                                    <span class="text-gray-400 text-sm">SUBJECTS APPREHENDED</span>
-                                    <span class="font-tactical text-2xl text-red-400">89</span>
+                                    <span class="text-gray-400 text-sm">TOTAL VIEWS</span>
+                                    <span class="font-tactical text-2xl text-white">43.1M</span>
                                 </div>
                                 <div class="flex justify-between items-center py-2 border-b border-white/10">
-                                    <span class="text-gray-400 text-sm">TASK FORCE MEMBERS</span>
-                                    <span class="font-tactical text-2xl text-amber-400">2.4k</span>
+                                    <span class="text-gray-400 text-sm">OPERATIONS DOCUMENTED</span>
+                                    <span class="font-tactical text-2xl text-amber-400">473</span>
                                 </div>
                                 <div class="flex justify-between items-center py-2">
                                     <span class="text-gray-400 text-sm">MISSION SUCCESS RATE</span>
-                                    <span class="font-tactical text-2xl text-green-400">98%</span>
+                                    <span class="font-tactical text-2xl text-green-400">ACTIVE</span>
                                 </div>
                             </div>
 
                             <div class="mt-6 pt-4 border-t border-red-500/30">
                                 <div class="flex items-center justify-between text-xs">
-                                    <span class="text-gray-500">LAST UPDATE</span>
-                                    <span class="text-red-400">T-MINUS 04:23:18</span>
+                                    <span class="text-gray-500">CHANNEL: @PredTaskForce</span>
+                                    <span class="text-red-400">T-MINUS LIVE</span>
                                 </div>
                             </div>
                         </div>
@@ -445,8 +480,45 @@
         </div>
     </section>
 
+    <!-- Content Series Section -->
+    <section id="evidence" class="py-20 px-6 relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono tracking-widest text-red-400 block mb-2">CINEMATIC DOCUMENTARY SERIES</span>
+                <h2 class="font-tactical text-4xl font-bold mb-4">THE FORMAT</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Professional, documentary-style predator catching operations. Each case follows a structured approach from investigation to legal outcome.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-red-500">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">🎯</div>
+                    <h3 class="font-tactical font-bold mb-2 text-red-400">THE CATCH</h3>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Confrontation footage. The moment of truth when predators are exposed.</p>
+                </div>
+
+                <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-amber-500">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">📞</div>
+                    <h3 class="font-tactical font-bold mb-2 text-amber-400">THE CALL</h3>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Phone sting operations. Decoy conversations that lead to exposure.</p>
+                </div>
+
+                <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-green-500">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">📁</div>
+                    <h3 class="font-tactical font-bold mb-2 text-green-400">THE EVIDENCE</h3>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Chat logs and proof. Documented communication and documentation.</p>
+                </div>
+
+                <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-red-500">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">⚖️</div>
+                    <h3 class="font-tactical font-bold mb-2 text-red-400">THE AFTERMATH</h3>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Legal outcomes. Justice served and case resolutions documented.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Support Tiers -->
-    <section class="py-20 px-6 relative">
+    <section id="operations" class="py-20 px-6 relative">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full tactical-glass border border-red-500/30 mb-6">
@@ -454,7 +526,7 @@
                     <span class="text-xs font-mono tracking-widest text-red-400">TIER CLASSIFICATION</span>
                 </div>
                 <h2 class="font-tactical text-4xl font-bold mb-4">SELECT CLEARANCE LEVEL</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Higher clearance grants access to classified operations, evidence archives, and direct communication with command.</p>
+                <p class="text-gray-400 max-w-2xl mx-auto">Higher clearance grants access to classified operations, evidence archives, and direct communication with command based in Texas.</p>
             </div>
 
             <!-- Toggle -->
@@ -486,7 +558,7 @@
                     <ul class="space-y-3 mb-8 text-sm">
                         <li class="flex items-start gap-3 text-gray-300">
                             <span class="text-green-400 mt-1">›</span>
-                            <span>Access to declassified case files</span>
+                            <span>Access to declassified case files via Linktree</span>
                         </li>
                         <li class="flex items-start gap-3 text-gray-300">
                             <span class="text-green-400 mt-1">›</span>
@@ -534,7 +606,7 @@
                         </li>
                         <li class="flex items-start gap-3 text-gray-300">
                             <span class="text-amber-400 mt-1">›</span>
-                            <span>Raw operation footage</span>
+                            <span>Raw "The Catch" footage</span>
                         </li>
                         <li class="flex items-start gap-3 text-gray-300">
                             <span class="text-amber-400 mt-1">›</span>
@@ -652,7 +724,7 @@
     </section>
 
     <!-- Equipment/Perks Grid -->
-    <section class="py-20 px-6">
+    <section id="intel" class="py-20 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">
                 <span class="text-xs font-mono tracking-widest text-red-400 block mb-2">RESOURCES</span>
@@ -663,7 +735,7 @@
                 <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-red-500">
                     <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">📹</div>
                     <h3 class="font-tactical font-bold mb-2 text-red-400">RAW FOOTAGE</h3>
-                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Unedited operation videos and evidence archives</p>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Unedited "The Catch" videos and evidence archives</p>
                 </div>
 
                 <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-amber-500">
@@ -675,13 +747,13 @@
                 <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-green-500">
                     <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">🎯</div>
                     <h3 class="font-tactical font-bold mb-2 text-green-400">TARGET INTEL</h3>
-                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Case files and background research access</p>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Case files and background research via Linktree</p>
                 </div>
 
                 <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-red-500">
                     <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">🛡️</div>
                     <h3 class="font-tactical font-bold mb-2 text-red-400">TACTICAL GEAR</h3>
-                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Merchandise and equipment discounts</p>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Official PTF merchandise and equipment discounts</p>
                 </div>
             </div>
         </div>
@@ -701,7 +773,7 @@
                             <div class="text-xs text-gray-500 font-mono">8 MONTHS ACTIVE</div>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">"The raw footage access is incredible. Seeing the unedited operations gives you real respect for the work Jake does."</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">"The raw footage access is incredible. Seeing the unedited 'The Catch' segments gives you real respect for the work Jake does in Texas."</p>
                 </div>
 
                 <div class="tactical-glass rounded-lg p-6 border-l-2 border-amber-500/50">
@@ -712,7 +784,7 @@
                             <div class="text-xs text-gray-500 font-mono">COMMAND ELITE</div>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">"Monthly briefings with Jake are worth every penny. Getting inside intel on upcoming operations is next level."</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">"Monthly briefings with Jake are worth every penny. Getting inside intel on upcoming operations through the Discord is next level."</p>
                 </div>
 
                 <div class="tactical-glass rounded-lg p-6 border-l-2 border-red-500/50">
@@ -723,7 +795,7 @@
                             <div class="text-xs text-gray-500 font-mono">1 YEAR SERVICE</div>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">"Voted on the last three operation names. Being part of the command structure feels like I'm actually helping catch predators."</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">"Voted on the last three operation names through the X community. Being part of the command structure feels like I'm actually helping catch predators."</p>
                 </div>
             </div>
         </div>
@@ -767,6 +839,16 @@
                         Upon enlistment, you will receive an encrypted email with your secure Discord access codes and authentication details.
                     </div>
                 </div>
+
+                <div class="tactical-glass rounded-lg overflow-hidden border-l-2 border-l-transparent hover:border-l-red-500 transition-all">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center faq-toggle group">
+                        <span class="font-tactical tracking-wide group-hover:text-red-400 transition-colors">WHERE CAN I VIEW CASE EVIDENCE?</span>
+                        <svg class="w-5 h-5 transform transition-transform text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="px-6 pb-4 text-sm text-gray-400 hidden faq-content font-mono">
+                        All case evidence and links are organized through our official Linktree at linktr.ee/predtaskforce. This includes "The Evidence" chat logs and case documentation.
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -778,14 +860,15 @@
                 <div class="w-10 h-10 rounded bg-black border border-red-500/50 flex items-center justify-center font-tactical font-black text-red-500">PTF</div>
                 <div>
                     <span class="font-tactical font-bold block">PREDATOR TASK FORCE</span>
-                    <span class="text-xs text-gray-600 font-mono">EST. 2024 // SECURE SERVER</span>
+                    <span class="text-xs text-gray-600 font-mono">EST. 2024 // TEXAS // SECURE SERVER</span>
                 </div>
             </div>
             
             <div class="flex gap-6 text-xs font-mono text-gray-500">
-                <a href="#" class="hover:text-red-400 transition-colors">PROTOCOLS</a>
-                <a href="#" class="hover:text-red-400 transition-colors">PRIVACY</a>
-                <a href="#" class="hover:text-red-400 transition-colors">CONTACT</a>
+                <a href="https://www.youtube.com/@PredTaskForce" target="_blank" class="hover:text-red-400 transition-colors">YOUTUBE</a>
+                <a href="https://www.instagram.com/predtaskforce" target="_blank" class="hover:text-amber-400 transition-colors">INSTAGRAM</a>
+                <a href="https://x.com/predtaskforce" target="_blank" class="hover:text-white transition-colors">X (TWITTER)</a>
+                <a href="https://linktr.ee/predtaskforce" target="_blank" class="hover:text-green-400 transition-colors">CASE FILES</a>
             </div>
 
             <div class="text-xs text-gray-600 font-mono">
