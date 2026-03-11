@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake Hockey | Predator Task Force | Support the Mission</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tactical-black: #0a0a0c;
+            --tactical-gray: #1a1a1f;
+            --neon-red: #ff3b3b;
+            --neon-amber: #ffaa00;
+            --neon-green: #00ff88;
+            --steel-blue: #4a5568;
+            --glass-white: rgba(255, 255, 255, 0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--tactical-black);
+            color: #e2e8f0;
+            overflow-x: hidden;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+        }
+
+        .font-tactical {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .font-body {
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* Scanline Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.3;
+        }
+
+        /* Tactical Glass */
+        .tactical-glass {
+            background: rgba(20, 20, 25, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 8px 32px 0 rgba(0, 0, 0, 0.5),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+                0 0 20px rgba(255, 59, 59, 0.1);
+        }
+
+        .tactical-glass-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tactical-glass-hover:hover {
+            background: rgba(30, 30, 35, 0.8);
+            border-color: rgba(255, 59, 59, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.6),
+                0 0 30px rgba(255, 59, 59, 0.2),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Emergency Glow */
+        .emergency-glow {
+            animation: emergencyPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes emergencyPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 59, 59, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 59, 59, 0.6); }
+        }
+
+        .amber-glow {
+            box-shadow: 0 0 20px rgba(255, 170, 0, 0.3);
+        }
+
+        .green-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Grid Background */
+        .tactical-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 59, 59, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 59, 59, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Floating Animation */
+        .float-tactical {
+            animation: tacticalFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes tacticalFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Target Reticle */
+        .reticle {
+            position: relative;
+        }
+        .reticle::before,
+        .reticle::after {
+            content: '';
+            position: absolute;
+            border: 2px solid rgba(255, 59, 59, 0.5);
+            width: 20px;
+            height: 20px;
+            transition: all 0.3s;
+        }
+        .reticle::before {
+            top: -5px;
+            left: -5px;
+            border-right: none;
+            border-bottom: none;
+        }
+        .reticle::after {
+            bottom: -5px;
+            right: -5px;
+            border-left: none;
+            border-top: none;
+        }
+        .reticle:hover::before,
+        .reticle:hover::after {
+            width: calc(100% + 10px);
+            height: calc(100% + 10px);
+            border-color: rgba(255, 59, 59, 0.8);
+        }
+
+        /* Range Slider Tactical */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: var(--neon-red);
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 0 20px rgba(255, 59, 59, 0.8);
+            border: 2px solid #fff;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        /* Blinking Cursor */
+        .blink {
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        /* Status Indicators */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .status-live { background: var(--neon-red); box-shadow: 0 0 10px var(--neon-red); }
+        .status-standby { background: var(--neon-amber); box-shadow: 0 0 10px var(--neon-amber); }
+        .status-secure { background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 #00fff9;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(12px, 9999px, 52px, 0); }
+            20% { clip: rect(58px, 9999px, 12px, 0); }
+            40% { clip: rect(12px, 9999px, 64px, 0); }
+            60% { clip: rect(86px, 9999px, 32px, 0); }
+            80% { clip: rect(28px, 9999px, 92px, 0); }
+            100% { clip: rect(64px, 9999px, 16px, 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 99px, 0); }
+            20% { clip: rect(12px, 9999px, 45px, 0); }
+            40% { clip: rect(78px, 9999px, 12px, 0); }
+            60% { clip: rect(34px, 9999px, 67px, 0); }
+            80% { clip: rect(91px, 9999px, 23px, 0); }
+            100% { clip: rect(12px, 9999px, 54px, 0); }
+        }
+
+        /* Tactical Borders */
+        .tactical-border-l {
+            border-left: 3px solid var(--neon-red);
+            padding-left: 1rem;
+        }
+
+        /* Button Styles */
+        .btn-tactical {
+            background: linear-gradient(135deg, rgba(255,59,59,0.2), rgba(255,59,59,0.05));
+            border: 1px solid rgba(255,59,59,0.3);
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-tactical::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn-tactical:hover::before {
+            left: 100%;
+        }
+        .btn-tactical:hover {
+            background: rgba(255,59,59,0.3);
+            box-shadow: 0 0 30px rgba(255,59,59,0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-amber {
+            background: linear-gradient(135deg, rgba(255,170,0,0.2), rgba(255,170,0,0.05));
+            border: 1px solid rgba(255,170,0,0.3);
+        }
+        .btn-amber:hover {
+            background: rgba(255,170,0,0.3);
+            box-shadow: 0 0 30px rgba(255,170,0,0.4);
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, rgba(0,255,136,0.2), rgba(0,255,136,0.05));
+            border: 1px solid rgba(0,255,136,0.3);
+        }
+        .btn-green:hover {
+            background: rgba(0,255,136,0.3);
+            box-shadow: 0 0 30px rgba(0,255,136,0.4);
+        }
+
+        /* Data Stream Effect */
+        .data-stream {
+            position: absolute;
+            font-family: 'Orbitron', monospace;
+            font-size: 10px;
+            color: rgba(255,59,59,0.3);
+            pointer-events: none;
+            white-space: nowrap;
+            animation: stream 10s linear infinite;
+        }
+        @keyframes stream {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="scanlines"></div>
+    <div class="tactical-grid"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 tactical-glass border-b border-red-500/20">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-lg bg-black border-2 border-red-500/50 flex items-center justify-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-red-500/20 group-hover:bg-red-500/30 transition-all"></div>
+                    <span class="font-tactical font-black text-xl text-red-500 relative z-10">PTF</span>
+                    <div class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                </div>
+                <div>
+                    <span class="font-tactical font-bold text-xl tracking-widest block">PREDATOR TASK FORCE</span>
+                    <span class="text-xs text-red-400 tracking-[0.3em] uppercase">Jake Hockey // Command</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wider">
+                <a href="#" class="hover:text-red-400 transition-colors uppercase">Intel</a>
+                <a href="#" class="hover:text-red-400 transition-colors uppercase">Operations</a>
+                <a href="#" class="hover:text-red-400 transition-colors uppercase">Evidence</a>
+                <button class="px-6 py-2 tactical-glass border border-red-500/30 hover:border-red-500/60 text-red-400 transition-all uppercase tracking-widest text-xs">
+                    Secure Login
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-6 overflow-hidden">
+        <!-- Data Streams Background -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none" id="data-streams"></div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <!-- Status Bar -->
+            <div class="flex items-center gap-6 mb-8 text-xs font-mono tracking-widest opacity-0" id="status-bar">
+                <div class="flex items-center">
+                    <span class="status-dot status-live"></span>
+                    <span class="text-red-400">MISSION ACTIVE</span>
+                </div>
+                <div class="h-4 w-px bg-white/20"></div>
+                <span class="text-gray-500">OP-CODE: SHIELD-WALL</span>
+                <div class="h-4 w-px bg-white/20"></div>
+                <span class="text-gray-500">LOC: CLASSIFIED</span>
+                <div class="h-4 w-px bg-white/20"></div>
+                <span class="blink text-amber-400">REC</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="font-tactical text-5xl md:text-7xl font-black mb-6 leading-none glitch" data-text="SUPPORT THE HUNT">
+                        SUPPORT<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-500">THE HUNT</span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-400 mb-8 leading-relaxed border-l-2 border-red-500/50 pl-6">
+                        Join the Predator Task Force. Your support funds operations, equipment, and the relentless pursuit of justice. 
+                        Every contribution keeps the streets safer.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4">
+                        <button class="btn-tactical px-8 py-4 rounded-sm font-tactical">
+                            Join Task Force
+                        </button>
+                        <button class="tactical-glass px-8 py-4 rounded-sm font-tactical border border-white/10 hover:border-white/30 transition-all">
+                            View Intel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tactical Display -->
+                <div class="relative">
+                    <div class="tactical-glass rounded-lg p-1 emergency-glow">
+                        <div class="bg-black/50 rounded p-6 relative overflow-hidden">
+                            <!-- Corner Decorations -->
+                            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-red-500"></div>
+                            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-red-500"></div>
+                            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-red-500"></div>
+                            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-red-500"></div>
+
+                            <div class="font-mono text-xs text-red-400 mb-4 flex justify-between">
+                                <span>TARGET ACQUISITION</span>
+                                <span>SYS.ONLINE</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center py-2 border-b border-white/10">
+                                    <span class="text-gray-400 text-sm">OPERATIONS CONDUCTED</span>
+                                    <span class="font-tactical text-2xl text-white">147</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-white/10">
+                                    <span class="text-gray-400 text-sm">SUBJECTS APPREHENDED</span>
+                                    <span class="font-tactical text-2xl text-red-400">89</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-white/10">
+                                    <span class="text-gray-400 text-sm">TASK FORCE MEMBERS</span>
+                                    <span class="font-tactical text-2xl text-amber-400">2.4k</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2">
+                                    <span class="text-gray-400 text-sm">MISSION SUCCESS RATE</span>
+                                    <span class="font-tactical text-2xl text-green-400">98%</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-red-500/30">
+                                <div class="flex items-center justify-between text-xs">
+                                    <span class="text-gray-500">LAST UPDATE</span>
+                                    <span class="text-red-400">T-MINUS 04:23:18</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Elements -->
+                    <div class="absolute -top-4 -right-4 w-24 h-24 tactical-glass rounded-full flex items-center justify-center float-tactical border border-red-500/30">
+                        <div class="text-center">
+                            <div class="text-2xl font-tactical text-red-500">LIVE</div>
+                            <div class="text-[10px] tracking-widest">FEED</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Tiers -->
+    <section class="py-20 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full tactical-glass border border-red-500/30 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    <span class="text-xs font-mono tracking-widest text-red-400">TIER CLASSIFICATION</span>
+                </div>
+                <h2 class="font-tactical text-4xl font-bold mb-4">SELECT CLEARANCE LEVEL</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Higher clearance grants access to classified operations, evidence archives, and direct communication with command.</p>
+            </div>
+
+            <!-- Toggle -->
+            <div class="flex justify-center items-center gap-4 mb-12">
+                <span class="text-sm font-mono tracking-widest text-gray-400" id="monthly-label">MONTHLY</span>
+                <div class="relative inline-block w-14 h-8 align-middle select-none">
+                    <input type="checkbox" id="billing-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-red-500 border-4 border-transparent appearance-none cursor-pointer transition-all duration-300 left-1 top-1">
+                    <label for="billing-toggle" class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-800 border border-red-500/30 cursor-pointer transition-colors duration-300"></label>
+                </div>
+                <span class="text-sm font-mono tracking-widest text-gray-600" id="yearly-label">ANNUAL <span class="text-red-400 text-xs ml-1">[SAVE 20%]</span></span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Tier 1: Field Agent -->
+                <div class="tactical-glass rounded-lg p-8 tactical-glass-hover reticle relative group" data-tier="1">
+                    <div class="absolute top-0 left-0 bg-green-500/20 text-green-400 px-3 py-1 text-xs font-mono tracking-widest border-b border-r border-green-500/30">
+                        CLEARANCE: LEVEL 1
+                    </div>
+                    
+                    <div class="mt-8 mb-6">
+                        <h3 class="font-tactical text-2xl font-bold mb-2 text-green-400">FIELD AGENT</h3>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-tactical font-bold price-amount" data-monthly="5" data-yearly="48">$5</span>
+                            <span class="text-gray-500 font-mono text-sm billing-period">/CYCLE</span>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-green-400 mt-1">›</span>
+                            <span>Access to declassified case files</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-green-400 mt-1">›</span>
+                            <span>Secure comms channel (Discord)</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-green-400 mt-1">›</span>
+                            <span>Monthly intel briefings</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-green-400 mt-1">›</span>
+                            <span>Operation code names access</span>
+                        </li>
+                    </ul>
+
+                    <button class="w-full py-3 btn-green rounded-sm font-tactical text-sm tracking-widest">
+                        ENLIST
+                    </button>
+                </div>
+
+                <!-- Tier 2: Tactical Operator -->
+                <div class="tactical-glass rounded-lg p-8 tactical-glass-hover reticle relative group transform md:scale-105 border-amber-500/30" data-tier="2">
+                    <div class="absolute top-0 left-0 bg-amber-500/20 text-amber-400 px-3 py-1 text-xs font-mono tracking-widest border-b border-r border-amber-500/30">
+                        CLEARANCE: LEVEL 2 [RECOMMENDED]
+                    </div>
+                    
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div class="bg-amber-500 text-black px-4 py-1 rounded-sm text-xs font-bold tracking-widest font-tactical shadow-lg shadow-amber-500/50">
+                            MOST DEPLOYED
+                        </div>
+                    </div>
+
+                    <div class="mt-8 mb-6">
+                        <h3 class="font-tactical text-2xl font-bold mb-2 text-amber-400">TACTICAL OPERATOR</h3>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-tactical font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-red-400 price-amount" data-monthly="15" data-yearly="144">$15</span>
+                            <span class="text-gray-500 font-mono text-sm billing-period">/CYCLE</span>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-amber-400 mt-1">›</span>
+                            <span>All Field Agent privileges</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-amber-400 mt-1">›</span>
+                            <span>Raw operation footage</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-amber-400 mt-1">›</span>
+                            <span>Direct line to Command (DM access)</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-amber-400 mt-1">›</span>
+                            <span>Pre-release evidence access</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-amber-400 mt-1">›</span>
+                            <span>Tactical gear discounts</span>
+                        </li>
+                    </ul>
+
+                    <button class="w-full py-3 btn-amber rounded-sm font-tactical text-sm tracking-widest text-black">
+                        DEPLOY NOW
+                    </button>
+                </div>
+
+                <!-- Tier 3: Command Elite -->
+                <div class="tactical-glass rounded-lg p-8 tactical-glass-hover reticle relative group" data-tier="3">
+                    <div class="absolute top-0 left-0 bg-red-500/20 text-red-400 px-3 py-1 text-xs font-mono tracking-widest border-b border-r border-red-500/30">
+                        CLEARANCE: LEVEL 3 [MAX]
+                    </div>
+                    
+                    <div class="mt-8 mb-6">
+                        <h3 class="font-tactical text-2xl font-bold mb-2 text-red-400">COMMAND ELITE</h3>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-tactical font-bold price-amount" data-monthly="50" data-yearly="480">$50</span>
+                            <span class="text-gray-500 font-mono text-sm billing-period">/CYCLE</span>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-red-400 mt-1">›</span>
+                            <span>All Tactical Operator privileges</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-red-400 mt-1">›</span>
+                            <span>Monthly video briefing with Jake</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-red-400 mt-1">›</span>
+                            <span>Case file input & targeting votes</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-red-400 mt-1">›</span>
+                            <span>Exclusive Command merchandise</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-300">
+                            <span class="text-red-400 mt-1">›</span>
+                            <span>Operation naming rights</span>
+                        </li>
+                    </ul>
+
+                    <button class="w-full py-3 btn-tactical rounded-sm font-tactical text-sm tracking-widest">
+                        ASSUME COMMAND
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Support -->
+    <section class="py-20 px-6">
+        <div class="max-w-3xl mx-auto tactical-glass rounded-lg p-8 md:p-12 relative overflow-hidden border-red-500/20">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-red-500/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+            
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+                    <span class="text-xs font-mono tracking-widest text-amber-400">SPECIAL OPERATIONS FUND</span>
+                </div>
+                <h3 class="font-tactical text-3xl font-bold mb-2">DIRECT TRANSFER</h3>
+                <p class="text-gray-400 mb-8 font-mono text-sm">ONE-TIME OR RECURRING TACTICAL FUNDING</p>
+
+                <div class="space-y-6">
+                    <div class="flex gap-4 mb-6">
+                        <button class="flex-1 py-3 rounded-sm bg-red-500/20 border border-red-500/50 font-tactical tracking-widest text-sm transition-all hover:bg-red-500/30 active-mode" id="one-time-btn">
+                            ONE-TIME
+                        </button>
+                        <button class="flex-1 py-3 rounded-sm bg-transparent border border-white/10 font-tactical tracking-widest text-sm transition-all hover:bg-white/5 text-gray-400" id="monthly-btn">
+                            RECURRING
+                        </button>
+                    </div>
+
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-2xl font-tactical text-red-500">$</span>
+                        <input type="number" id="custom-amount" placeholder="ENTER AMOUNT" 
+                            class="w-full bg-black/50 border border-red-500/30 rounded-sm py-4 pl-12 pr-4 text-2xl font-tactical focus:outline-none focus:border-red-500 focus:shadow-[0_0_20px_rgba(255,59,59,0.3)] transition-all placeholder-gray-700"
+                            min="1">
+                    </div>
+
+                    <input type="range" min="5" max="500" value="25" class="w-full" id="amount-slider">
+
+                    <div class="flex justify-between text-xs font-mono text-gray-600">
+                        <span>$5</span>
+                        <span>$250</span>
+                        <span>$500+</span>
+                    </div>
+
+                    <button class="w-full py-4 rounded-sm bg-red-600 hover:bg-red-500 font-tactical text-lg tracking-widest shadow-lg shadow-red-500/25 hover:shadow-red-500/50 transition-all mt-4 border border-red-400">
+                        INITIATE TRANSFER
+                    </button>
+
+                    <div class="flex items-center justify-center gap-2 text-xs text-gray-600 font-mono mt-4">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        SECURE ENCRYPTED TRANSACTION
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment/Perks Grid -->
+    <section class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono tracking-widest text-red-400 block mb-2">RESOURCES</span>
+                <h2 class="font-tactical text-3xl font-bold">MISSION ASSETS</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-red-500">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">📹</div>
+                    <h3 class="font-tactical font-bold mb-2 text-red-400">RAW FOOTAGE</h3>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Unedited operation videos and evidence archives</p>
+                </div>
+
+                <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-amber-500">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">🎧</div>
+                    <h3 class="font-tactical font-bold mb-2 text-amber-400">COMMS ACCESS</h3>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Encrypted Discord server with real-time updates</p>
+                </div>
+
+                <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-green-500">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">🎯</div>
+                    <h3 class="font-tactical font-bold mb-2 text-green-400">TARGET INTEL</h3>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Case files and background research access</p>
+                </div>
+
+                <div class="tactical-glass rounded-lg p-6 tactical-glass-hover group cursor-pointer border-l-2 border-l-transparent hover:border-l-red-500">
+                    <div class="text-3xl mb-4 group-hover:scale-110 transition-transform">🛡️</div>
+                    <h3 class="font-tactical font-bold mb-2 text-red-400">TACTICAL GEAR</h3>
+                    <p class="text-sm text-gray-400 font-mono leading-relaxed">Merchandise and equipment discounts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 px-6 overflow-hidden bg-black/30">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-tactical text-3xl font-bold text-center mb-12">FIELD REPORTS</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="tactical-glass rounded-lg p-6 border-l-2 border-green-500/50">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded bg-green-500/20 flex items-center justify-center font-tactical text-green-400">S1</div>
+                        <div>
+                            <div class="font-tactical font-bold text-sm">AGENT SARAH M.</div>
+                            <div class="text-xs text-gray-500 font-mono">8 MONTHS ACTIVE</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">"The raw footage access is incredible. Seeing the unedited operations gives you real respect for the work Jake does."</p>
+                </div>
+
+                <div class="tactical-glass rounded-lg p-6 border-l-2 border-amber-500/50">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded bg-amber-500/20 flex items-center justify-center font-tactical text-amber-400">M2</div>
+                        <div>
+                            <div class="font-tactical font-bold text-sm">OPERATOR MIKE R.</div>
+                            <div class="text-xs text-gray-500 font-mono">COMMAND ELITE</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">"Monthly briefings with Jake are worth every penny. Getting inside intel on upcoming operations is next level."</p>
+                </div>
+
+                <div class="tactical-glass rounded-lg p-6 border-l-2 border-red-500/50">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded bg-red-500/20 flex items-center justify-center font-tactical text-red-400">A3</div>
+                        <div>
+                            <div class="font-tactical font-bold text-sm">COMMAND ALEX K.</div>
+                            <div class="text-xs text-gray-500 font-mono">1 YEAR SERVICE</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">"Voted on the last three operation names. Being part of the command structure feels like I'm actually helping catch predators."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 px-6">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-xs font-mono tracking-widest text-red-400">INTEL BRIEFING</span>
+                <h2 class="font-tactical text-3xl font-bold mt-2">FREQUENTLY ASKED</h2>
+            </div>
+            
+            <div class="space-y-4" id="faq-container">
+                <div class="tactical-glass rounded-lg overflow-hidden border-l-2 border-l-transparent hover:border-l-red-500 transition-all">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center faq-toggle group">
+                        <span class="font-tactical tracking-wide group-hover:text-red-400 transition-colors">CAN I CANCEL MY ENLISTMENT?</span>
+                        <svg class="w-5 h-5 transform transition-transform text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="px-6 pb-4 text-sm text-gray-400 hidden faq-content font-mono">
+                        Affirmative. You may terminate your support at any time with no penalties. Access continues until end of current billing cycle.
+                    </div>
+                </div>
+
+                <div class="tactical-glass rounded-lg overflow-hidden border-l-2 border-l-transparent hover:border-l-red-500 transition-all">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center faq-toggle group">
+                        <span class="font-tactical tracking-wide group-hover:text-red-400 transition-colors">WHAT PAYMENT METHODS ARE SECURE?</span>
+                        <svg class="w-5 h-5 transform transition-transform text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="px-6 pb-4 text-sm text-gray-400 hidden faq-content font-mono">
+                        We accept all major credit cards, PayPal, Apple Pay, and Google Pay. All transactions are encrypted and secure.
+                    </div>
+                </div>
+
+                <div class="tactical-glass rounded-lg overflow-hidden border-l-2 border-l-transparent hover:border-l-red-500 transition-all">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center faq-toggle group">
+                        <span class="font-tactical tracking-wide group-hover:text-red-400 transition-colors">HOW DO I ACCESS SECURE COMMS?</span>
+                        <svg class="w-5 h-5 transform transition-transform text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="px-6 pb-4 text-sm text-gray-400 hidden faq-content font-mono">
+                        Upon enlistment, you will receive an encrypted email with your secure Discord access codes and authentication details.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-red-500/20 mt-20 py-12 px-6 bg-black/50">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded bg-black border border-red-500/50 flex items-center justify-center font-tactical font-black text-red-500">PTF</div>
+                <div>
+                    <span class="font-tactical font-bold block">PREDATOR TASK FORCE</span>
+                    <span class="text-xs text-gray-600 font-mono">EST. 2024 // SECURE SERVER</span>
+                </div>
+            </div>
+            
+            <div class="flex gap-6 text-xs font-mono text-gray-500">
+                <a href="#" class="hover:text-red-400 transition-colors">PROTOCOLS</a>
+                <a href="#" class="hover:text-red-400 transition-colors">PRIVACY</a>
+                <a href="#" class="hover:text-red-400 transition-colors">CONTACT</a>
+            </div>
+
+            <div class="text-xs text-gray-600 font-mono">
+                © 2026 PTF COMMAND
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Streams
+        const streamsContainer = document.getElementById('data-streams');
+        const codes = ['ENCRYPTING...', 'SECURE CONNECTION', 'TARGET ACQUIRED', 'UPLOADING EVIDENCE', 'SCANNING...', 'VERIFIED'];
+        
+        for (let i = 0; i < 5; i++) {
+            const stream = document.createElement('div');
+            stream.className = 'data-stream';
+            stream.style.left = Math.random() * 100 + '%';
+            stream.style.animationDelay = Math.random() * 5 + 's';
+            stream.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            stream.textContent = codes[Math.floor(Math.random() * codes.length)];
+            streamsContainer.appendChild(stream);
+        }
+
+        // GSAP Animations
+        gsap.to("#status-bar", { opacity: 1, duration: 1, delay: 0.5 });
+        
+        // Billing Toggle
+        const billingToggle = document.getElementById('billing-toggle');
+        const monthlyLabel = document.getElementById('monthly-label');
+        const yearlyLabel = document.getElementById('yearly-label');
+        const priceAmounts = document.querySelectorAll('.price-amount');
+        const billingPeriods = document.querySelectorAll('.billing-period');
+
+        billingToggle.addEventListener('change', function() {
+            const isYearly = this.checked;
+            
+            monthlyLabel.classList.toggle('text-gray-400', isYearly);
+            monthlyLabel.classList.toggle('text-gray-600', !isYearly);
+            yearlyLabel.classList.toggle('text-red-400', isYearly);
+            yearlyLabel.classList.toggle('text-gray-600', !isYearly);
+
+            priceAmounts.forEach(price => {
+                const amount = isYearly ? price.dataset.yearly : price.dataset.monthly;
+                price.textContent = '$' + amount;
+            });
+
+            billingPeriods.forEach(period => {
+                period.textContent = isYearly ? '/YEAR' : '/MONTH';
+            });
+        });
+
+        // Custom Amount
+        const slider = document.getElementById('amount-slider');
+        const customInput = document.getElementById('custom-amount');
+        
+        slider.addEventListener('input', function() {
+            customInput.value = this.value;
+        });
+
+        customInput.addEventListener('input', function() {
+            slider.value = this.value;
+        });
+
+        // Toggle Buttons
+        const oneTimeBtn = document.getElementById('one-time-btn');
+        const monthlyBtn = document.getElementById('monthly-btn');
+
+        oneTimeBtn.addEventListener('click', function() {
+            this.classList.add('bg-red-500/20', 'border-red-500/50', 'text-white');
+            this.classList.remove('bg-transparent', 'border-white/10', 'text-gray-400');
+            monthlyBtn.classList.remove('bg-red-500/20', 'border-red-500/50', 'text-white');
+            monthlyBtn.classList.add('bg-transparent', 'border-white/10', 'text-gray-400');
+        });
+
+        monthlyBtn.addEventListener('click', function() {
+            this.classList.add('bg-red-500/20', 'border-red-500/50', 'text-white');
+            this.classList.remove('bg-transparent', 'border-white/10', 'text-gray-400');
+            oneTimeBtn.classList.remove('bg-red-500/20', 'border-red-500/50', 'text-white');
+            oneTimeBtn.classList.add('bg-transparent', 'border-white/10', 'text-gray-400');
+        });
+
+        // FAQ
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const arrow = this.querySelector('svg');
+                
+                content.classList.toggle('hidden');
+                arrow.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+        });
+
+        // 3D Tilt
+        document.querySelectorAll('.tactical-glass-hover').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-2px)`;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
